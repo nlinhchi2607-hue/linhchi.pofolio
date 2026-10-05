@@ -1,0 +1,1869 @@
+/* ============================================================
+   PORTFOLIO GIA SƯ NGUYỄN THỊ LINH CHI - GAMIFIED PINK & WHITE THEME
+   Style: Kawaii RPG / Arcade Adventure Aesthetic
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Press+Start+2P&family=Alex+Brush&display=swap');
+
+:root {
+  /* Palette: Sweet Sakura Pink & Cloud White Gamified */
+  --pink-50: #FFF5F8;
+  --pink-100: #FFE6EE;
+  --pink-200: #FFD0E0;
+  --pink-300: #FFA8C5;
+  --pink-400: #FF78A1;
+  --pink-500: #FF4D82;
+  --pink-600: #E62A62;
+  --pink-700: #BF1546;
+  --pink-glow: rgba(255, 77, 130, 0.3);
+  --pink-glow-strong: rgba(255, 77, 130, 0.55);
+
+  --white: #FFFFFF;
+  --white-trans: rgba(255, 255, 255, 0.9);
+  --bg-game: #FFF8FA;
+  --bg-slot: rgba(255, 255, 255, 0.95);
+
+  --hp-green: #10B981;
+  --mp-blue: #3B82F6;
+  --exp-gold: #F59E0B;
+  --rarity-ssr: linear-gradient(135deg, #FF6B95, #FFAEC9, #FFD166, #FF6B95);
+
+  --text-title: #22141C;
+  --text-body: #573E4D;
+  --text-muted: #8F7283;
+  --border-game: 2px solid rgba(255, 120, 161, 0.35);
+  --border-pixel: 3px solid #FF78A1;
+
+  --grad-pink: linear-gradient(135deg, #FF4D82 0%, #FF85A7 100%);
+  --grad-game-btn: linear-gradient(180deg, #FF78A1 0%, #FF4D82 100%);
+  --grad-card: linear-gradient(145deg, #FFFFFF 0%, #FFF2F6 100%);
+
+  --shadow-game: 0 8px 0 rgba(230, 42, 98, 0.2), 0 15px 30px rgba(255, 77, 130, 0.15);
+  --shadow-btn: 0 4px 0 #D81B55, 0 8px 18px rgba(255, 77, 130, 0.3);
+  --shadow-btn-hover: 0 2px 0 #D81B55, 0 4px 10px rgba(255, 77, 130, 0.3);
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-hand: 'Alex Brush', cursive;
+
+  --transition-smooth: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-game);
+  color: var(--text-body);
+  line-height: 1.68;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(rgba(255, 168, 197, 0.18) 1.5px, transparent 1.5px),
+    radial-gradient(rgba(255, 168, 197, 0.1) 1.5px, transparent 1.5px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* Background Canvas */
+#petal-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+.ambient-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 168, 197, 0.4), transparent 70%);
+  top: -120px;
+  right: -100px;
+}
+.ambient-orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 208, 224, 0.45), transparent 70%);
+  bottom: 5%;
+  left: -150px;
+}
+
+/* Containers */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-alt {
+  background: linear-gradient(180deg, var(--bg-game) 0%, #FFF0F5 50%, var(--bg-game) 100%);
+}
+
+/* Game Badges & Typography */
+.pixel-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  background: #FFE6EE;
+  color: var(--pink-600);
+  border-radius: 6px;
+  border: 2px solid var(--pink-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 0 #FF78A1;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.75rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.section-title .highlight {
+  color: var(--pink-500);
+  font-style: italic;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto 50px auto;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ============================================================
+   TOP GAME HUD STATUS BAR (RPG HEADER BAR)
+   ============================================================ */
+.game-hud-bar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--pink-200);
+  padding: 6px 0;
+  font-size: 0.8rem;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  box-shadow: 0 2px 10px rgba(255, 77, 130, 0.08);
+}
+
+.hud-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hud-player-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud-badge-ssr {
+  background: var(--rarity-ssr);
+  color: var(--white);
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.hud-bars {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hud-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-bar-label {
+  font-weight: 800;
+  font-size: 0.72rem;
+  color: var(--text-title);
+  font-family: var(--font-pixel);
+}
+
+.hud-meter {
+  width: 90px;
+  height: 10px;
+  background: #EFE3E8;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--pink-200);
+  position: relative;
+}
+
+.hud-meter-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1s ease;
+}
+
+.fill-hp { width: 100%; background: linear-gradient(90deg, #10B981, #34D399); }
+.fill-mp { width: 100%; background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+.fill-exp { width: 98%; background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+
+.hud-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hud-icon-btn {
+  background: var(--white);
+  border: 1.5px solid var(--pink-300);
+  color: var(--pink-600);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 0 var(--pink-300);
+  transition: var(--transition-smooth);
+}
+
+.hud-icon-btn:hover {
+  background: var(--pink-100);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--pink-400);
+}
+
+.hud-icon-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: relative;
+  width: 100%;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--pink-100);
+  z-index: 1000;
+}
+
+.navbar .nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brand-logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo .brand-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--grad-pink);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px var(--pink-glow);
+  transform: rotate(-3deg);
+  transition: var(--transition-bounce);
+}
+
+.brand-logo:hover .brand-icon {
+  transform: rotate(6deg) scale(1.1);
+}
+
+.brand-logo .brand-text {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.brand-logo .brand-dot {
+  color: var(--pink-500);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-body);
+  font-weight: 700;
+  font-size: 0.925rem;
+  transition: var(--transition-smooth);
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--pink-500);
+  border-radius: 2px;
+  transition: var(--transition-smooth);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--pink-600);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-title);
+  cursor: pointer;
+}
+
+/* ============================================================
+   BUTTONS (ARCADE / 3D RETRO PRESS)
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  border: none;
+  position: relative;
+}
+
+.btn-game-primary {
+  background: var(--grad-game-btn);
+  color: var(--white);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-game-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #D81B55, 0 12px 24px rgba(255, 77, 130, 0.4);
+  color: var(--white);
+}
+
+.btn-game-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #D81B55;
+}
+
+.btn-game-secondary {
+  background: var(--white);
+  color: var(--pink-600);
+  border: 2px solid var(--pink-300);
+  box-shadow: 0 4px 0 var(--pink-300);
+}
+
+.btn-game-secondary:hover {
+  background: var(--pink-50);
+  border-color: var(--pink-400);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--pink-400);
+}
+
+.btn-game-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--pink-400);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   HERO SECTION (SSR CHARACTER CARD & QUEST LAUNCH)
+   ============================================================ */
+.hero {
+  padding: 60px 0 80px 0;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.hero-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 0 var(--pink-200);
+  margin-bottom: 22px;
+}
+
+.hero-status-pill .pulse-dot {
+  width: 10px;
+  height: 10px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 3.4rem;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.hero-title .cursive-name {
+  font-family: var(--font-hand);
+  font-size: 4.2rem;
+  color: var(--pink-500);
+  display: block;
+  margin-top: 4px;
+}
+
+.hero-typed-wrapper {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+}
+
+.typed-text {
+  color: var(--pink-600);
+  font-weight: 800;
+  border-bottom: 2px dashed var(--pink-400);
+}
+
+.cursor {
+  color: var(--pink-500);
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-body);
+  max-width: 550px;
+  margin-bottom: 34px;
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* Hero Stats Boxes (Gamer Scoreboard) */
+.hero-stats-game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 2px dashed var(--pink-200);
+}
+
+.stat-game-box {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 0 var(--pink-200);
+  text-align: center;
+}
+
+.stat-game-num {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--pink-600);
+  line-height: 1;
+}
+
+.stat-game-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* SSR Character Card (Holographic Gamer Card) */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ssr-character-card {
+  position: relative;
+  width: 380px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F9 100%);
+  border-radius: 32px;
+  padding: 16px;
+  border: 3px solid var(--pink-300);
+  box-shadow: 0 20px 50px rgba(255, 77, 130, 0.25), 0 6px 0 var(--pink-300);
+  transition: var(--transition-smooth);
+}
+
+.ssr-character-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 28px 60px rgba(255, 77, 130, 0.35), 0 8px 0 var(--pink-400);
+}
+
+.card-top-tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 6px;
+}
+
+.rarity-pill {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  background: var(--rarity-ssr);
+  color: var(--white);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.card-class {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--pink-600);
+}
+
+.card-image-box {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid var(--pink-200);
+}
+
+.card-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.6s ease;
+}
+
+.ssr-character-card:hover .card-image-box img {
+  transform: scale(1.05);
+}
+
+/* NPC Speech Bubble (Interactive Dialogue) */
+.npc-dialogue-bubble {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border: 2px solid var(--pink-300);
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: var(--transition-bounce);
+}
+
+.npc-dialogue-bubble:hover {
+  background: var(--white);
+  border-color: var(--pink-500);
+  transform: translateY(-2px);
+}
+
+.npc-name {
+  font-size: 0.72rem;
+  font-family: var(--font-pixel);
+  color: var(--pink-600);
+  margin-bottom: 4px;
+}
+
+.npc-text {
+  font-size: 0.88rem;
+  color: var(--text-title);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Floating Game Badges */
+.float-card {
+  position: absolute;
+  background: var(--white);
+  border: 2px solid var(--pink-300);
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 6px 0 var(--pink-200), 0 12px 24px rgba(255, 77, 130, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+  transition: var(--transition-bounce);
+}
+
+.float-card:hover {
+  transform: scale(1.08) translateY(-4px) !important;
+}
+
+.float-card-1 { top: 30px; left: -50px; animation: floatAnim1 5s infinite ease-in-out; }
+.float-card-2 { bottom: 100px; left: -45px; animation: floatAnim2 6s infinite ease-in-out; }
+.float-card-3 { top: 70px; right: -45px; animation: floatAnim3 5.5s infinite ease-in-out; }
+.float-card-4 { bottom: 35px; right: -30px; animation: floatAnim1 7s infinite ease-in-out; }
+
+@keyframes floatAnim1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes floatAnim2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes floatAnim3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
+.icon-pink { background: var(--grad-pink); }
+.icon-gold { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
+.icon-blue { background: linear-gradient(135deg, #3B82F6, #60A5FA); }
+.icon-rose { background: linear-gradient(135deg, #EC4899, #F472B6); }
+
+.float-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-title);
+  line-height: 1.2;
+}
+
+.float-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   CHARACTER BIO & SKILL TREE (GIỚI THIỆU & NĂNG LỰC)
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.rpg-dialog-box {
+  background: var(--white);
+  border: 3px solid var(--pink-300);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: 0 8px 0 var(--pink-200), 0 20px 40px rgba(255, 77, 130, 0.12);
+  position: relative;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed var(--pink-200);
+}
+
+.dialog-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: 2px solid var(--pink-400);
+  object-fit: cover;
+}
+
+.dialog-author-name {
+  font-weight: 800;
+  color: var(--pink-600);
+  font-size: 1.15rem;
+}
+
+.dialog-author-tag {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.dialog-quote {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--text-title);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Skill Tree Mini Bars */
+.skill-tree-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skill-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.skill-name { color: var(--text-title); }
+.skill-score { color: var(--pink-600); font-weight: 800; font-family: var(--font-pixel); font-size: 0.7rem; }
+
+.skill-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--pink-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 100%;
+  background: var(--grad-pink);
+  border-radius: 4px;
+}
+
+.about-right-text h3 {
+  font-size: 1.9rem;
+  font-family: var(--font-serif);
+  margin-bottom: 16px;
+}
+
+.about-right-text p {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  margin-bottom: 18px;
+}
+
+/* ============================================================
+   PILLARS: 4 SPECIAL SKILLS / BUFFS
+   ============================================================ */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.buff-card {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-lg);
+  padding: 30px 22px;
+  box-shadow: 0 6px 0 var(--pink-200);
+  transition: var(--transition-bounce);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.buff-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--pink-400);
+  box-shadow: 0 10px 0 var(--pink-300), 0 15px 30px rgba(255, 77, 130, 0.18);
+}
+
+.buff-type {
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  color: var(--pink-600);
+  margin-bottom: 14px;
+}
+
+.buff-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--pink-100);
+  color: var(--pink-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  border: 2px solid var(--pink-300);
+}
+
+.buff-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text-title);
+}
+
+.buff-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   INVENTORY & TROPHY ROOM (KHO TRANG BỊ & THÀNH TỰU)
+   ============================================================ */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.inventory-slot {
+  background: var(--white);
+  border: 3px solid var(--pink-300);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 6px 0 var(--pink-200), 0 15px 30px rgba(255, 77, 130, 0.1);
+  transition: var(--transition-bounce);
+  position: relative;
+}
+
+.inventory-slot:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--pink-500);
+  box-shadow: 0 10px 0 var(--pink-400), 0 20px 40px rgba(255, 77, 130, 0.25);
+}
+
+.slot-rarity {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 0.72rem;
+  color: #F59E0B;
+}
+
+.slot-icon-large {
+  font-size: 2.4rem;
+  color: var(--pink-500);
+  margin-bottom: 12px;
+}
+
+.slot-value {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--pink-600);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.slot-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-title);
+  margin-bottom: 6px;
+}
+
+.slot-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.slot-level-badge {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 4px 12px;
+  background: var(--pink-100);
+  border: 1px solid var(--pink-300);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--pink-600);
+}
+
+/* ============================================================
+   ADVENTURE STAGE MAP (BẢN ĐỒ HÀNH TRÌNH VƯỢT ẢI)
+   ============================================================ */
+.stage-map-container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.stage-map-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36px;
+  width: 4px;
+  background: repeating-linear-gradient(180deg, var(--pink-400), var(--pink-400) 10px, transparent 10px, transparent 20px);
+}
+
+.stage-node {
+  position: relative;
+  padding-left: 90px;
+  margin-bottom: 44px;
+}
+
+.stage-node:last-child {
+  margin-bottom: 0;
+}
+
+.stage-checkpoint {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--pink-500);
+  box-shadow: 0 4px 0 var(--pink-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  color: var(--pink-600);
+  z-index: 3;
+  transition: var(--transition-bounce);
+}
+
+.stage-node:hover .stage-checkpoint {
+  transform: scale(1.2) rotate(10deg);
+  background: var(--pink-500);
+  color: var(--white);
+}
+
+.stage-card {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  box-shadow: 0 5px 0 var(--pink-200);
+  transition: var(--transition-smooth);
+}
+
+.stage-node:hover .stage-card {
+  transform: translateX(8px);
+  border-color: var(--pink-400);
+  box-shadow: 0 8px 0 var(--pink-300), 0 15px 30px rgba(255, 77, 130, 0.15);
+}
+
+.stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stage-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.stage-time-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  background: var(--pink-100);
+  color: var(--pink-600);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.stage-mission {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--pink-600);
+  margin-bottom: 12px;
+}
+
+.stage-bullets {
+  list-style: none;
+}
+
+.stage-bullets li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--text-body);
+}
+
+.stage-bullets li::before {
+  content: '⚔️';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-size: 0.75rem;
+}
+
+/* ============================================================
+   QUEST BOARD (BẢNG NHẬN NHIỆM VỤ / KHÓA HỌC)
+   ============================================================ */
+.quest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.quest-scroll-card {
+  background: var(--white);
+  border: 3px solid var(--pink-200);
+  border-radius: var(--radius-lg);
+  padding: 34px 26px;
+  box-shadow: 0 6px 0 var(--pink-200);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-bounce);
+  position: relative;
+}
+
+.quest-scroll-card.featured-quest {
+  border-color: var(--pink-400);
+  box-shadow: 0 8px 0 var(--pink-400), 0 20px 40px rgba(255, 77, 130, 0.15);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF5F9 100%);
+}
+
+.featured-quest-ribbon {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--grad-pink);
+  color: var(--white);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  box-shadow: 0 3px 0 #D81B55;
+}
+
+.quest-scroll-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--pink-500);
+  box-shadow: 0 10px 0 var(--pink-400);
+}
+
+.quest-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.quest-rank {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  background: var(--pink-100);
+  color: var(--pink-600);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.quest-stars {
+  color: #F59E0B;
+  font-size: 0.85rem;
+}
+
+.quest-name {
+  font-size: 1.45rem;
+  font-family: var(--font-serif);
+  color: var(--text-title);
+  margin-bottom: 10px;
+}
+
+.quest-desc {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.quest-rewards {
+  list-style: none;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.quest-rewards li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+.quest-rewards li i {
+  color: var(--pink-500);
+}
+
+/* ============================================================
+   MINI-GAME: ENGLISH EXP BATTLE (TRẮC NGHIỆM TRÒ CHƠI)
+   ============================================================ */
+.minigame-section {
+  padding: 60px 0;
+}
+
+.arcade-machine-box {
+  background: var(--white);
+  border: 4px solid var(--pink-300);
+  border-radius: var(--radius-lg);
+  padding: 44px;
+  box-shadow: 0 10px 0 var(--pink-200), 0 25px 60px rgba(255, 77, 130, 0.2);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.arcade-screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.arcade-exp-counter {
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  background: #FEF3C7;
+  color: #B45309;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 2px solid #FCD34D;
+  box-shadow: 0 3px 0 #F59E0B;
+}
+
+.quiz-container {
+  background: var(--pink-50);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  margin-bottom: 24px;
+}
+
+.quiz-question {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-title);
+  margin-bottom: 22px;
+}
+
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.quiz-opt-btn {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-title);
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--pink-200);
+  transition: var(--transition-bounce);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-opt-btn:hover {
+  background: var(--pink-100);
+  border-color: var(--pink-400);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 var(--pink-300);
+}
+
+.quiz-opt-btn.correct {
+  background: #D1FAE5 !important;
+  border-color: #10B981 !important;
+  color: #065F46 !important;
+  box-shadow: 0 4px 0 #059669 !important;
+}
+
+.quiz-opt-btn.wrong {
+  background: #FEE2E2 !important;
+  border-color: #EF4444 !important;
+  color: #991B1B !important;
+  box-shadow: 0 4px 0 #DC2626 !important;
+}
+
+.quiz-feedback-box {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: none;
+}
+
+.quiz-feedback-box.show {
+  display: block;
+}
+
+.quiz-reward-screen {
+  text-align: center;
+  display: none;
+  padding: 30px;
+}
+
+.reward-trophy {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: bounce 1.2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ============================================================
+   SPELL BOOK: WORD OF THE DAY
+   ============================================================ */
+.spell-book-box {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F9 100%);
+  border: 3px solid var(--pink-200);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: 0 6px 0 var(--pink-200);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.spell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.spell-display {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 0 var(--pink-100);
+}
+
+.spell-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.spell-word {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--pink-600);
+}
+
+.spell-phonetic {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.spell-sound-btn {
+  background: var(--pink-100);
+  color: var(--pink-600);
+  border: 2px solid var(--pink-300);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 0 var(--pink-300);
+  transition: var(--transition-bounce);
+}
+
+.spell-sound-btn:hover {
+  background: var(--pink-500);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.spell-meaning {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-title);
+  margin-bottom: 12px;
+}
+
+.spell-example {
+  background: var(--pink-50);
+  border-left: 4px solid var(--pink-400);
+  padding: 14px 18px;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.95rem;
+  color: var(--text-body);
+  font-style: italic;
+}
+
+/* ============================================================
+   PARTY MEMBER REVIEWS (HỌC VIÊN NÓI VỀ GIA SƯ LINH CHI)
+   ============================================================ */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 2px solid var(--pink-200);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  box-shadow: 0 5px 0 var(--pink-200);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-bounce);
+}
+
+.review-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--pink-400);
+  box-shadow: 0 8px 0 var(--pink-300), 0 16px 32px rgba(255, 77, 130, 0.12);
+}
+
+.review-stars {
+  color: #F59E0B;
+  margin-bottom: 14px;
+  font-size: 1.05rem;
+}
+
+.review-quote {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 22px;
+  font-style: italic;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1.5px dashed var(--pink-200);
+}
+
+.review-avatar-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--pink-100);
+  color: var(--pink-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border: 2px solid var(--pink-300);
+}
+
+.author-name {
+  font-weight: 800;
+  color: var(--text-title);
+  font-size: 0.95rem;
+}
+
+.author-role {
+  font-size: 0.78rem;
+  color: var(--pink-600);
+  font-weight: 700;
+}
+
+/* ============================================================
+   GUILD RECEPTION / CONTACT SECTION
+   ============================================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  background: var(--white);
+  border: 3px solid var(--pink-300);
+  border-radius: var(--radius-lg);
+  padding: 50px;
+  box-shadow: 0 10px 0 var(--pink-200), 0 25px 60px rgba(255, 77, 130, 0.15);
+}
+
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--text-body);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--pink-200);
+  background: var(--pink-50);
+  transition: var(--transition-smooth);
+}
+
+.channel-item:hover {
+  background: var(--white);
+  border-color: var(--pink-400);
+  transform: translateX(6px);
+}
+
+.channel-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--pink-600);
+  border: 2px solid var(--pink-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.cv-download-banner {
+  background: #FFF5F8;
+  border: 2px dashed var(--pink-400);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* Form */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--pink-200);
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  background: var(--bg-game);
+  transition: var(--transition-smooth);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--pink-500);
+  background: var(--white);
+  box-shadow: 0 0 0 4px var(--pink-glow);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: #1C1117;
+  color: #CDB9C4;
+  padding: 70px 0 30px 0;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 0.8fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-brand .brand-logo .brand-text {
+  color: var(--white);
+}
+
+.footer-bio {
+  margin-top: 14px;
+  font-size: 0.925rem;
+  line-height: 1.7;
+}
+
+.footer-title {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #CDB9C4;
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+  color: var(--pink-400);
+  padding-left: 6px;
+}
+
+.footer-bottom {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ============================================================
+   MODAL & TOAST
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(34, 20, 28, 0.65);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-box {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  max-width: 520px;
+  width: 100%;
+  padding: 36px;
+  position: relative;
+  box-shadow: 0 10px 0 var(--pink-400), 0 30px 70px rgba(0,0,0,0.3);
+  border: 3px solid var(--pink-300);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: var(--pink-100);
+  border: 2px solid var(--pink-300);
+  color: var(--pink-600);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.modal-close-btn:hover {
+  background: var(--pink-500);
+  color: var(--white);
+}
+
+.toast-msg {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--white);
+  border: 2px solid var(--pink-400);
+  border-left: 6px solid var(--pink-500);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 0 var(--pink-300), 0 15px 35px rgba(255, 77, 130, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 3000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toast-msg.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 1080px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 60px;
+  }
+  .hero-typed-wrapper, .hero-actions {
+    justify-content: center;
+  }
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-stats-game {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .pillars-grid, .inventory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .quest-grid, .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-title .cursive-name {
+    font-size: 3.2rem;
+  }
+  .ssr-character-card {
+    width: 300px;
+  }
+  .card-image-box {
+    height: 340px;
+  }
+  .float-card-1 { top: -20px; left: -10px; }
+  .float-card-2 { bottom: 20px; left: -15px; }
+  .float-card-3 { top: 20px; right: -15px; }
+  .float-card-4 { bottom: -20px; right: -10px; }
+
+  .nav-menu {
+    position: fixed;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    border-bottom: 2px solid var(--pink-300);
+    transform: translateY(-150%);
+    transition: transform 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .nav-menu.mobile-open {
+    transform: translateY(0);
+  }
+  .mobile-toggle {
+    display: block;
+  }
+
+  .pillars-grid, .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+  .quiz-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .arcade-machine-box {
+    padding: 24px 16px;
+  }
+  .hud-bars {
+    display: none;
+  }
+}

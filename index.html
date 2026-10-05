@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linh Chi's English Quest | Gia sư Tiếng Anh Chuyên Sâu</title>
+  <meta name="description" content="Portfolio phong cách trò chơi phiêu lưu của Gia sư Nguyễn Thị Linh Chi - IELTS 7.5, SAT 1460, Sinh viên ĐH Ngoại Thương.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Animated Petal Canvas -->
+  <canvas id="petal-canvas"></canvas>
+
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-orb ambient-orb-1"></div>
+  <div class="ambient-orb ambient-orb-2"></div>
+
+  <!-- ============================================================
+       TOP GAME HUD BAR (PLAYER STATUS SCREEN)
+       ============================================================ -->
+  <div class="game-hud-bar">
+    <div class="container hud-container">
+      <div class="hud-player-info">
+        <span class="hud-badge-ssr">★ SSR MENTOR</span>
+        <strong style="color:var(--text-title); font-size:0.85rem;">Player: Linh Chi</strong>
+        <span style="font-family:var(--font-pixel); color:var(--pink-600); font-size:0.7rem;">LVL.99</span>
+      </div>
+
+      <div class="hud-bars">
+        <!-- HP Bar -->
+        <div class="hud-bar-item" title="Nhiệt huyết & Năng lượng giảng dạy: 100/100">
+          <span class="hud-bar-label">HP</span>
+          <div class="hud-meter"><div class="hud-meter-fill fill-hp"></div></div>
+          <span style="font-size:0.7rem; font-weight:700;">100/100</span>
+        </div>
+
+        <!-- MP Bar -->
+        <div class="hud-bar-item" title="Nền tảng kiến thức học thuật: 100/100">
+          <span class="hud-bar-label">MP</span>
+          <div class="hud-meter"><div class="hud-meter-fill fill-mp"></div></div>
+          <span style="font-size:0.7rem; font-weight:700;">100/100</span>
+        </div>
+
+        <!-- EXP Bar -->
+        <div class="hud-bar-item" title="Điểm kinh nghiệm sư phạm">
+          <span class="hud-bar-label">EXP</span>
+          <div class="hud-meter"><div class="hud-meter-fill fill-exp"></div></div>
+          <span style="font-size:0.7rem; font-weight:700;" id="hud-exp-val">9,800/10k</span>
+        </div>
+      </div>
+
+      <div class="hud-tools">
+        <!-- Sound SFX Toggle -->
+        <button class="hud-icon-btn" id="sfx-toggle" title="Bật/Tắt âm thanh trò chơi 8-bit">
+          <i class="fa-solid fa-volume-high"></i> SFX: <span id="sfx-status">ON</span>
+        </button>
+        <!-- Blossom Petal Toggle -->
+        <button class="hud-icon-btn" id="petal-toggle" title="Bật/Tắt hiệu ứng hoa rơi">
+          🌸 Hoa rơi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-logo game-sound-btn" data-sfx="coin">
+        <div class="brand-icon">
+          <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <span class="brand-text">Linh Chi<span class="brand-dot">.</span></span>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link active game-sound-btn" data-sfx="click">Nhân vật</a></li>
+        <li><a href="#skills" class="nav-link game-sound-btn" data-sfx="click">Chỉ số</a></li>
+        <li><a href="#inventory" class="nav-link game-sound-btn" data-sfx="click">Kho bảo vật</a></li>
+        <li><a href="#adventure" class="nav-link game-sound-btn" data-sfx="click">Hành trình</a></li>
+        <li><a href="#quests" class="nav-link game-sound-btn" data-sfx="click">Bảng nhiệm vụ</a></li>
+        <li><a href="#minigame" class="nav-link game-sound-btn" data-sfx="click">Mini-Game</a></li>
+        <li><a href="#contact" class="nav-link game-sound-btn" data-sfx="click">Báo danh</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="btn btn-game-primary btn-sm open-booking game-sound-btn" data-course="Tư vấn lộ trình gia sư" data-sfx="levelup">
+          <i class="fa-solid fa-scroll"></i> Nhận Nhiệm Vụ
+        </button>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO: SSR CHARACTER CARD & QUEST LAUNCH
+       ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Hero Text -->
+        <div class="hero-content">
+          <div class="hero-status-pill">
+            <span class="pulse-dot"></span>
+            <span style="font-size:0.85rem; font-weight:800; color:var(--text-title);">
+              TRẠNG THÁI: <strong style="color:var(--pink-600);">Mở Lớp Gia Sư Kèm 1-1 & Nhóm Nhỏ</strong>
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            Chiến Binh Đồng Hành
+            <span class="cursive-name">Gia Sư Linh Chi</span>
+          </h1>
+
+          <div class="hero-typed-wrapper">
+            <span>Hệ chiến đấu: </span>
+            <span class="typed-text" id="typed-text"></span>
+            <span class="cursor">_</span>
+          </div>
+
+          <p class="hero-desc">
+            Chào mừng bạn đến với thế giới chinh phục Tiếng Anh! Gia sư Linh Chi (Sinh viên ĐH Ngoại Thương, IELTS 7.5, SAT 1460) sẽ là "Party Leader" tận tâm, cùng bạn nâng cấp trình độ từ Level 1 đến phá đảo các kỳ thi chuyển cấp vào 10 và chứng chỉ quốc tế.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#quests" class="btn btn-game-primary game-sound-btn" data-sfx="levelup">
+              <i class="fa-solid fa-sword"></i> Khám Phá Nhiệm Vụ
+            </a>
+            <a href="assets/CV-Nguyen-Thi-Linh-Chi.pdf" target="_blank" class="btn btn-game-secondary game-sound-btn" data-sfx="coin">
+              <i class="fa-solid fa-scroll"></i> Xem Bảng Skill (CV PDF)
+            </a>
+          </div>
+
+          <!-- Hero Gamer Stats -->
+          <div class="hero-stats-game">
+            <div class="stat-game-box">
+              <div class="stat-game-num" data-target="3">0</div>
+              <div class="stat-game-label">⚔️ Năm EXP Sư Phạm</div>
+            </div>
+            <div class="stat-game-box">
+              <div class="stat-game-num" data-target="7.5">0</div>
+              <div class="stat-game-label">⚡ IELTS Power (IDP)</div>
+            </div>
+            <div class="stat-game-box">
+              <div class="stat-game-num" data-target="1460">0</div>
+              <div class="stat-game-label">🎯 SAT Critical Strike</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right: SSR Character Card with NPC Dialogue -->
+        <div class="hero-visual">
+          <div class="ssr-character-card">
+            <div class="card-top-tag">
+              <span class="rarity-pill">★ SSR MENTOR</span>
+              <span class="card-class"><i class="fa-solid fa-shield-halved"></i> CLASS: GIA SƯ TIẾNG ANH</span>
+            </div>
+
+            <div class="card-image-box">
+              <img src="assets/avatar.jpg" alt="Gia sư Nguyễn Thị Linh Chi" id="character-avatar-img">
+
+              <!-- Interactive NPC Speech Bubble -->
+              <div class="npc-dialogue-bubble game-sound-btn" id="npc-bubble" data-sfx="blip" title="Bấm vào để nghe Gia sư Linh Chi trò chuyện!">
+                <div class="npc-name">💬 GIA SƯ LINH CHI NÓI:</div>
+                <div class="npc-text" id="npc-text">"Chào bạn! Dù mất gốc hay muốn săn 8.0 IELTS, mình luôn sẵn sàng đồng hành cùng bạn!"</div>
+                <span style="font-size:0.7rem; color:var(--pink-500); display:block; margin-top:4px;">(Nhấp để đổi câu thoại ✨)</span>
+              </div>
+            </div>
+
+            <!-- Floating Stat Badges -->
+            <div class="float-card float-card-1">
+              <div class="float-icon icon-pink"><i class="fa-solid fa-award"></i></div>
+              <div>
+                <div class="float-title">IELTS 7.5</div>
+                <div class="float-sub">Full 4 Kỹ Năng</div>
+              </div>
+            </div>
+
+            <div class="float-card float-card-2">
+              <div class="float-icon icon-gold"><i class="fa-solid fa-bolt"></i></div>
+              <div>
+                <div class="float-title">1460 SAT</div>
+                <div class="float-sub">Tư Duy Logic Cao Cấp</div>
+              </div>
+            </div>
+
+            <div class="float-card float-card-3">
+              <div class="float-icon icon-blue"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div>
+                <div class="float-title">ĐH Ngoại Thương</div>
+                <div class="float-sub">Kinh Tế Quốc Tế FTU</div>
+              </div>
+            </div>
+
+            <div class="float-card float-card-4">
+              <div class="float-icon icon-rose"><i class="fa-solid fa-trophy"></i></div>
+              <div>
+                <div class="float-title">Giải Ba Tỉnh</div>
+                <div class="float-sub">HSG Môn Tiếng Anh</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CHARACTER BIO & STATS RADAR (BẢNG CHỈ SỐ NĂNG LỰC)
+       ============================================================ -->
+  <section class="section section-alt" id="skills">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-chart-simple"></i> BẢNG CHỈ SỐ NHÂN VẬT</span>
+        <h2 class="section-title">Năng Lực & <span class="highlight">Triết Lý Giảng Dạy</span></h2>
+        <p class="section-subtitle">Gia sư Linh Chi kết hợp nền tảng Chuyên Anh chuẩn mực, tư duy học thuật sắc sảo cùng kỹ năng truyền lửa kiên nhẫn.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Left: RPG Dialogue Card & Skill Bars -->
+        <div class="rpg-dialog-box">
+          <div class="dialog-header">
+            <img src="assets/avatar.jpg" alt="Linh Chi" class="dialog-avatar">
+            <div>
+              <div class="dialog-author-name">Nguyễn Thị Linh Chi</div>
+              <div class="dialog-author-tag">Gia Sư & Trợ Giảng Tiếng Anh Chuyên Sâu</div>
+            </div>
+          </div>
+
+          <p class="dialog-quote">
+            “Học tiếng Anh giống như một trò chơi phiêu lưu kỳ thú. Chỉ cần có người đồng hành chỉ đúng lối và hướng dẫn chuẩn chiến thuật, bất kỳ ải khó nào bạn cũng có thể vượt qua!”
+          </p>
+
+          <!-- Skill Tree Progress Bars -->
+          <div class="skill-tree-box">
+            <div class="skill-row">
+              <div class="skill-info">
+                <span class="skill-name">📖 Nắm Vững Ngữ Pháp & Cấu Trúc Đề</span>
+                <span class="skill-score">98/100</span>
+              </div>
+              <div class="skill-progress"><div class="skill-bar" style="width: 98%;"></div></div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-info">
+                <span class="skill-name">🗣️ Phát Âm & Phản Xạ 4 Kỹ Năng</span>
+                <span class="skill-score">95/100</span>
+              </div>
+              <div class="skill-progress"><div class="skill-bar" style="width: 95%;"></div></div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-info">
+                <span class="skill-name">🎯 Chiến Thuật Thi Đấu (Vào 10 & IELTS)</span>
+                <span class="skill-score">99/100</span>
+              </div>
+              <div class="skill-progress"><div class="skill-bar" style="width: 99%;"></div></div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-info">
+                <span class="skill-name">💖 Kiên Nhẫn, Nhiệt Tình & Truyền Động Lực</span>
+                <span class="skill-score">100/100</span>
+              </div>
+              <div class="skill-progress"><div class="skill-bar" style="width: 100%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Story Details -->
+        <div class="about-right-text">
+          <h3>Hành Trình Gắn Bó Cùng Học Trò</h3>
+          <p>
+            Từng là học sinh lớp Chuyên Tiếng Anh trường <strong>THPT Chuyên Thái Bình</strong> với 12 năm liền đạt danh hiệu Học sinh Xuất sắc (GPA 9.3, điểm tổng kết Tiếng Anh 9.8), gia sư Linh Chi thấu hiểu sâu sắc từng khó khăn của học sinh khi đối mặt với các kỳ thi áp lực.
+          </p>
+          <p>
+            Hiện là sinh viên <strong>Kinh tế quốc tế - ĐH Ngoại Thương</strong>, gia sư Linh Chi luôn áp dụng phương pháp tương tác mở: cá nhân hóa bài giảng, giảng giải dễ hiểu theo bản chất chứ không học vẹt, giúp học sinh tìm thấy niềm vui và sự tự tin bứt phá điểm số sau từng buổi học.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px;">
+            <div style="background:var(--white); padding:14px; border:2px solid var(--pink-200); border-radius:12px; box-shadow:0 3px 0 var(--pink-200);">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:800; display:block;">📍 KHU VỰC DẠY</span>
+              <strong style="color:var(--text-title); font-size:0.95rem;">Đống Đa, Hà Nội</strong>
+            </div>
+            <div style="background:var(--white); padding:14px; border:2px solid var(--pink-200); border-radius:12px; box-shadow:0 3px 0 var(--pink-200);">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:800; display:block;">📞 HOTLINE / ZALO</span>
+              <strong style="color:var(--pink-600); font-size:0.95rem;">0399 903 200</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PILLARS: 4 PASSIVE BUFFS (KỸ NĂNG NỘI TẠI)
+       ============================================================ -->
+  <section class="section" id="buffs">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-wand-magic-sparkles"></i> 4 PASSIVE BUFFS</span>
+        <h2 class="section-title">Kỹ Năng Giảng Dạy <span class="highlight">Đặc Quyền</span></h2>
+        <p class="section-subtitle">Những giá trị cốt lõi gia sư Linh Chi mang đến cho mỗi học viên trong từng buổi học.</p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="buff-card">
+          <span class="buff-type">[BUFF 01: TÙY BIẾN]</span>
+          <div class="buff-icon-box"><i class="fa-solid fa-compass-drafting"></i></div>
+          <h4 class="buff-title">Lộ Trình May Đo</h4>
+          <p class="buff-desc">Thiết kế bài giảng riêng biệt sau bài test đầu vào, lấp đúng lỗ hổng kiến thức và phát huy tối đa điểm mạnh của bạn.</p>
+        </div>
+
+        <div class="buff-card">
+          <span class="buff-type">[BUFF 02: TƯ DUY]</span>
+          <div class="buff-icon-box"><i class="fa-solid fa-brain"></i></div>
+          <h4 class="buff-title">Tư Duy Bản Chất</h4>
+          <p class="buff-desc">Hiểu gốc rễ ngữ pháp và tư duy ngôn ngữ phản xạ tự nhiên thay vì học vẹt công thức khô khan.</p>
+        </div>
+
+        <div class="buff-card">
+          <span class="buff-type">[BUFF 03: PHÒNG THI]</span>
+          <div class="buff-icon-box"><i class="fa-solid fa-crosshairs"></i></div>
+          <h4 class="buff-title">Săn Bẫy Đề Thi</h4>
+          <p class="buff-desc">Truyền thụ chiến thuật loại trừ đáp án, làm chủ thời gian làm bài theo đúng cấu trúc đề của Sở GD&ĐT và format IELTS.</p>
+        </div>
+
+        <div class="buff-card">
+          <span class="buff-type">[BUFF 04: ĐỒNG HÀNH]</span>
+          <div class="buff-icon-box"><i class="fa-solid fa-heart"></i></div>
+          <h4 class="buff-title">Truyền Lửa Tận Tâm</h4>
+          <p class="buff-desc">Môi trường học tập cởi mở, không áp lực sợ sai. Luôn hỗ trợ giải đáp bài tập 24/7 và thông báo tiến độ thường xuyên cho phụ huynh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INVENTORY / TROPHY ROOM (KHO TRANG BỊ & THÀNH TỰU)
+       ============================================================ -->
+  <section class="section section-alt" id="inventory">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-box-archive"></i> KHO TRANG BỊ & DANH HIỆU</span>
+        <h2 class="section-title">Bảo Vật & <span class="highlight">Chiến Tích Học Thuật</span></h2>
+        <p class="section-subtitle">Minh chứng cho năng lực học thuật xuất sắc được chứng nhận bởi các tổ chức khảo thí uy tín thế giới và quốc gia.</p>
+      </div>
+
+      <div class="inventory-grid">
+        <!-- Item 1: IELTS -->
+        <div class="inventory-slot game-sound-btn" data-sfx="coin">
+          <div class="slot-rarity">★★★★★ SSR</div>
+          <div class="slot-icon-large"><i class="fa-solid fa-award"></i></div>
+          <div class="slot-value">7.5</div>
+          <h3 class="slot-name">IELTS Academic</h3>
+          <p class="slot-desc">Chứng chỉ quốc tế 2024. Thành thạo xuất sắc 4 kỹ năng Nghe - Nói - Đọc - Viết học thuật.</p>
+          <span class="slot-level-badge">IDP / British Council</span>
+        </div>
+
+        <!-- Item 2: SAT -->
+        <div class="inventory-slot game-sound-btn" data-sfx="coin">
+          <div class="slot-rarity">★★★★★ SSR</div>
+          <div class="slot-icon-large"><i class="fa-solid fa-bullseye"></i></div>
+          <div class="slot-value">1460</div>
+          <h3 class="slot-name">SAT Reasoning Test</h3>
+          <p class="slot-desc">Tư duy đọc hiểu phản biện tiếng Anh chuyên sâu & toán học chuẩn tuyển sinh đại học hàng đầu.</p>
+          <span class="slot-level-badge">College Board</span>
+        </div>
+
+        <!-- Item 3: HSG Tỉnh -->
+        <div class="inventory-slot game-sound-btn" data-sfx="coin">
+          <div class="slot-rarity">★★★★☆ EPIC</div>
+          <div class="slot-icon-large"><i class="fa-solid fa-medal"></i></div>
+          <div class="slot-value">Giải Ba</div>
+          <h3 class="slot-name">Học Sinh Giỏi Tỉnh</h3>
+          <p class="slot-desc">Đạt giải Ba kỳ thi chọn Học sinh Giỏi cấp tỉnh môn Tiếng Anh năm 2021 với số điểm xuất sắc.</p>
+          <span class="slot-level-badge">Sở GD&ĐT Thái Bình</span>
+        </div>
+
+        <!-- Item 4: GPA -->
+        <div class="inventory-slot game-sound-btn" data-sfx="coin">
+          <div class="slot-rarity">★★★★☆ EPIC</div>
+          <div class="slot-icon-large"><i class="fa-solid fa-star"></i></div>
+          <div class="slot-value">9.8</div>
+          <h3 class="slot-name">Tổng Kết Tiếng Anh</h3>
+          <p class="slot-desc">12 năm liền đạt Học sinh Xuất sắc (GPA 9.3) tại THPT Chuyên Thái Bình (Lớp Chuyên Anh).</p>
+          <span class="slot-level-badge">Chuyên Thái Bình</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ADVENTURE STAGE MAP (BẢN ĐỒ HÀNH TRÌNH VƯỢT ẢI)
+       ============================================================ -->
+  <section class="section" id="adventure">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-map-location-dot"></i> BẢN ĐỒ PHIÊU LƯU</span>
+        <h2 class="section-title">Hành Trình Vượt Ải <span class="highlight">& Cày Cấp Sư Phạm</span></h2>
+        <p class="section-subtitle">Từng chặng đường tôi luyện kiến thức và hơn 3 năm đồng hành giảng dạy cùng học trò.</p>
+      </div>
+
+      <div class="stage-map-container">
+        <div class="stage-map-line"></div>
+
+        <!-- Stage 5: IELTS Tutor -->
+        <div class="stage-node">
+          <div class="stage-checkpoint">05</div>
+          <div class="stage-card">
+            <div class="stage-header">
+              <span class="stage-title">Gia sư IELTS Nền Tảng (Band 3.5 ➡️ 6.5)</span>
+              <span class="stage-time-tag">06/2025 - 10/2025</span>
+            </div>
+            <div class="stage-mission">Nhiệm vụ: Dẫn dắt học viên bứt phá band điểm & làm quen format quốc tế</div>
+            <ul class="stage-bullets">
+              <li>Xây dựng gốc từ vựng, ngữ pháp học thuật vững chắc cho cả 4 kỹ năng Nghe - Nói - Đọc - Viết.</li>
+              <li>Sửa bài Writing & Speaking 1-1 cặn kẽ, phát triển tư duy phản biện chuẩn bài thi IELTS Academic.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stage 4: FTU -->
+        <div class="stage-node">
+          <div class="stage-checkpoint">04</div>
+          <div class="stage-card">
+            <div class="stage-header">
+              <span class="stage-title">Gia nhập Đại Học Ngoại Thương Hà Nội (FTU)</span>
+              <span class="stage-time-tag">2025 - 2029</span>
+            </div>
+            <div class="stage-mission">Địa bàn: Ngành Kinh Tế Quốc Tế FTU</div>
+            <ul class="stage-bullets">
+              <li>Môi trường đào tạo năng động hàng đầu với 100% tài liệu và nhiều môn học giảng dạy bằng tiếng Anh.</li>
+              <li>Rèn luyện tư duy kinh tế sắc sảo, kỹ năng thuyết trình và giao tiếp quốc tế chuyên nghiệp.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stage 3: Secondary & Highschool Tutoring -->
+        <div class="stage-node">
+          <div class="stage-checkpoint">03</div>
+          <div class="stage-card">
+            <div class="stage-header">
+              <span class="stage-title">Gia sư Tiếng Anh Lớp 7 & Lớp 11</span>
+              <span class="stage-time-tag">2023 - 2024</span>
+            </div>
+            <div class="stage-mission">Nhiệm vụ: Củng cố kiến thức phổ thông & lấy lại gốc cho học sinh</div>
+            <ul class="stage-bullets">
+              <li>Giảng dạy chuyên đề trọng tâm bám sát SGK mới, giúp học sinh nâng cao điểm học bạ từ 6.0 lên 8.5+.</li>
+              <li>Rèn kỹ năng tự học và phản xạ tự tin khi làm bài thi học kỳ.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stage 2: Grade 9 Entrance Tutoring -->
+        <div class="stage-node">
+          <div class="stage-checkpoint">02</div>
+          <div class="stage-card">
+            <div class="stage-header">
+              <span class="stage-title">Gia sư Ôn Thi Vào Lớp 10 (Lớp 9 lên 10)</span>
+              <span class="stage-time-tag">2022 - 2023</span>
+            </div>
+            <div class="stage-mission">Nhiệm vụ: Luyện thi chuyển cấp chất lượng cao</div>
+            <ul class="stage-bullets">
+              <li>Ôn tập toàn diện kiến thức THCS, giải các bộ đề tuyển sinh bám sát cấu trúc của Sở GD&ĐT.</li>
+              <li>Rèn kỹ năng phòng thi, chiến thuật phân bổ thời gian và tâm lý làm chủ bài thi.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stage 1: Origin -->
+        <div class="stage-node">
+          <div class="stage-checkpoint">01</div>
+          <div class="stage-card">
+            <div class="stage-header">
+              <span class="stage-title">THPT Chuyên Thái Bình (Lớp Chuyên Tiếng Anh)</span>
+              <span class="stage-time-tag">2022 - 2025</span>
+            </div>
+            <div class="stage-mission">Xuất phát điểm: Làng Tân Thủ Kỳ Lân</div>
+            <ul class="stage-bullets">
+              <li>12 năm liền đạt Học sinh Xuất sắc (GPA 9.3, Điểm tổng kết môn Tiếng Anh: 9.8).</li>
+              <li>Đạt Giải Ba Học sinh Giỏi cấp tỉnh môn Tiếng Anh năm 2021.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       QUEST BOARD (BẢNG NHẬN NHIỆM VỤ / CÁC KHÓA HỌC)
+       ============================================================ -->
+  <section class="section section-alt" id="quests">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-scroll"></i> QUEST BOARD</span>
+        <h2 class="section-title">Bảng Chọn Nhiệm Vụ <span class="highlight">Cùng Gia Sư Linh Chi</span></h2>
+        <p class="section-subtitle">Hãy chọn nhiệm vụ học tập bạn muốn chinh phục. Gia sư Linh Chi sẽ đồng hành 1-1 cùng bạn!</p>
+      </div>
+
+      <div class="quest-grid">
+        <!-- Quest 1 -->
+        <div class="quest-scroll-card">
+          <div class="quest-meta">
+            <span class="quest-rank">QUEST 01</span>
+            <span class="quest-stars">★★★★☆</span>
+          </div>
+          <h3 class="quest-name">Vượt Ải Tuyển Sinh 10</h3>
+          <p class="quest-desc">Dành cho học sinh lớp 8-9 chuẩn bị bước vào kỳ thi chuyển cấp vào các trường THPT công lập & chuyên.</p>
+          <ul class="quest-rewards">
+            <li><i class="fa-solid fa-circle-check"></i> <strong>Mục tiêu:</strong> Đạt 8.5 - 9.5+ điểm thi vào 10</li>
+            <li><i class="fa-solid fa-circle-check"></i> Quét sạch 100% ngữ pháp & từ vựng trọng tâm THCS</li>
+            <li><i class="fa-solid fa-circle-check"></i> Luyện đề chuẩn form đề Sở GD&ĐT thực chiến</li>
+            <li><i class="fa-solid fa-circle-check"></i> Chiến thuật tránh bẫy câu hỏi phân loại</li>
+          </ul>
+          <button class="btn btn-game-secondary open-booking game-sound-btn" data-course="Luyện thi vào lớp 10" data-sfx="click">
+            <i class="fa-solid fa-hand-fist"></i> Nhận Nhiệm Vụ Này
+          </button>
+        </div>
+
+        <!-- Quest 2 (Featured) -->
+        <div class="quest-scroll-card featured-quest">
+          <div class="featured-quest-ribbon">⭐ NHIỆM VỤ ĐẶC BIỆT</div>
+          <div class="quest-meta">
+            <span class="quest-rank" style="background:var(--pink-500); color:white;">MAIN QUEST</span>
+            <span class="quest-stars">★★★★★</span>
+          </div>
+          <h3 class="quest-name">IELTS Foundation (3.5 ➡️ 6.5)</h3>
+          <p class="quest-desc">Dành cho các bạn muốn bứt phá band điểm IELTS phục vụ xét tuyển thẳng Đại học & săn học bổng.</p>
+          <ul class="quest-rewards">
+            <li><i class="fa-solid fa-circle-check"></i> <strong>Mục tiêu:</strong> Bứt phá lên Band 6.0 - 6.5+ vững vàng</li>
+            <li><i class="fa-solid fa-circle-check"></i> Hoàn thiện 4 kỹ năng: Listening - Reading - Writing - Speaking</li>
+            <li><i class="fa-solid fa-circle-check"></i> Sửa bài Writing & Speaking 1-1 cặn kẽ từng lỗi</li>
+            <li><i class="fa-solid fa-circle-check"></i> Kho từ vựng học thuật Band 7.0+ độc quyền</li>
+          </ul>
+          <button class="btn btn-game-primary open-booking game-sound-btn" data-course="IELTS Foundation (3.5 - 6.5)" data-sfx="levelup">
+            <i class="fa-solid fa-khanda"></i> Nhận Nhiệm Vụ & Test Trình Độ
+          </button>
+        </div>
+
+        <!-- Quest 3 -->
+        <div class="quest-scroll-card">
+          <div class="quest-meta">
+            <span class="quest-rank">QUEST 03</span>
+            <span class="quest-stars">★★★☆☆</span>
+          </div>
+          <h3 class="quest-name">Tiếng Anh THCS & THPT</h3>
+          <p class="quest-desc">Dành cho học sinh từ lớp 6-12 cần củng cố kiến thức, lấy lại gốc và nâng cao điểm số học bạ.</p>
+          <ul class="quest-rewards">
+            <li><i class="fa-solid fa-circle-check"></i> <strong>Mục tiêu:</strong> Đạt điểm 8.0+ môn tiếng Anh trên lớp</li>
+            <li><i class="fa-solid fa-circle-check"></i> Giảng giải dễ hiểu, nhớ lâu, học bằng tư duy</li>
+            <li><i class="fa-solid fa-circle-check"></i> Bám sát chương trình GDPT mới nhất</li>
+            <li><i class="fa-solid fa-circle-check"></i> Kèm 1-1 hoặc nhóm nhỏ tối đa 3-4 bạn</li>
+          </ul>
+          <button class="btn btn-game-secondary open-booking game-sound-btn" data-course="Tiếng Anh THCS & THPT" data-sfx="click">
+            <i class="fa-solid fa-hand-fist"></i> Nhận Nhiệm Vụ Này
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MINI-GAME: ENGLISH EXP BATTLE (TRẮC NGHIỆM TRÒ CHƠI)
+       ============================================================ -->
+  <section class="section minigame-section" id="minigame">
+    <div class="container">
+      <div class="arcade-machine-box">
+        <div class="arcade-screen-header">
+          <div>
+            <span class="pixel-tag"><i class="fa-solid fa-gamepad"></i> MINI-GAME ARCADE</span>
+            <h3 style="font-size:1.8rem; margin-top:8px; font-family:var(--font-serif);">English EXP Battle</h3>
+          </div>
+          <div class="arcade-exp-counter" id="quiz-exp-display">
+            ⚔️ ĐIỂM EXP: <span id="quiz-score">0</span> / 300 EXP
+          </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container" id="quiz-play-box">
+          <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; font-weight:800; color:var(--pink-600);">
+            <span id="quiz-round-text">VÒNG 1 / 3: THỬ THÁCH TỪ VỰNG IELTS</span>
+            <span>+100 EXP / Câu</span>
+          </div>
+
+          <h4 class="quiz-question" id="quiz-question-text">
+            Từ nào sau đây đồng nghĩa với từ "Meticulous" (IELTS Band 7.5)?
+          </h4>
+
+          <div class="quiz-options-grid" id="quiz-options-box">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="quiz-feedback-box" id="quiz-feedback"></div>
+        </div>
+
+        <!-- Quiz Winning Screen -->
+        <div class="quiz-reward-screen" id="quiz-reward-box">
+          <div class="reward-trophy">🏆</div>
+          <h4 style="font-family:var(--font-serif); font-size:2rem; color:var(--pink-600); margin-bottom:8px;">
+            CHIẾN THẮNG TUYỆT ĐỐI!
+          </h4>
+          <p style="font-size:1.1rem; color:var(--text-body); max-width:540px; margin:0 auto 20px auto;">
+            Chúc mừng bạn đã xuất sắc vượt qua cả 3 câu hỏi tiếng Anh và nhận được <strong>+300 EXP</strong>!
+          </p>
+          <div style="background:var(--white); border:2px dashed var(--pink-400); border-radius:12px; padding:18px; max-width:480px; margin:0 auto 24px auto;">
+            <span style="font-size:0.85rem; color:var(--pink-600); font-weight:800; display:block; margin-bottom:4px;">🎁 PHẦN THƯỞNG CHIẾN BINH MỞ KHÓA:</span>
+            <strong>01 Buổi Kiểm Tra Trình Độ & Tư Vấn Lộ Trình 1-1 Miễn Phí</strong> cùng Gia sư Linh Chi!
+          </div>
+          <button class="btn btn-game-primary open-booking game-sound-btn" data-course="Nhận thưởng Mini-game: Test 1-1 Miễn Phí" data-sfx="levelup">
+            <i class="fa-solid fa-gift"></i> Nhận Quà Ngay
+          </button>
+          <button class="btn btn-game-secondary game-sound-btn" id="quiz-restart-btn" data-sfx="click" style="margin-left:12px;">
+            <i class="fa-solid fa-arrows-rotate"></i> Chơi Lại
+          </button>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <span style="font-size:0.85rem; color:var(--text-muted);">
+            💡 Mẹo: Trả lời nhanh để giành phần thưởng độc quyền từ gia sư Linh Chi nhé!
+          </span>
+          <span style="font-family:var(--font-pixel); font-size:0.65rem; color:var(--pink-600);">
+            ARCADE READY 🕹️
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SPELL BOOK: WORD OF THE DAY & AUDIO PRONUNCIATION
+       ============================================================ -->
+  <section class="section" id="spellbook">
+    <div class="container">
+      <div class="spell-book-box">
+        <div class="spell-header">
+          <div>
+            <span class="pixel-tag"><i class="fa-solid fa-book-sparkles"></i> SÁCH PHÉP TỪ VỰNG</span>
+            <h3 style="font-size:1.75rem; margin-top:8px; font-family:var(--font-serif);">IELTS Word of the Day</h3>
+          </div>
+          <button class="btn btn-game-primary btn-sm game-sound-btn" id="next-spell-btn" data-sfx="coin">
+            <i class="fa-solid fa-arrows-rotate"></i> Phép Thuật Tiếp Theo
+          </button>
+        </div>
+
+        <div class="spell-display">
+          <div class="spell-top-row">
+            <h4 class="spell-word" id="vocab-word">Serendipity</h4>
+            <span class="spell-phonetic" id="vocab-phonetic">/ˌser.ənˈdɪp.ə.ti/</span>
+            <button class="spell-sound-btn game-sound-btn" id="vocab-speak-btn" data-sfx="blip" title="Nghe phát âm chuẩn giọng bản xứ">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+          </div>
+          <p class="spell-meaning" id="vocab-meaning">Sự may mắn bất ngờ khi tìm thấy điều tốt đẹp một cách tình cờ.</p>
+          <div class="spell-example" id="vocab-example">
+            "Learning a new language is full of <strong>serendipity</strong>—you never know what wonderful opportunities it will bring."
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <span style="font-size:0.85rem; color:var(--text-muted);" id="vocab-counter">
+            Từ vựng 1 / 8 trong kho tàng IELTS Band 7.5
+          </span>
+          <span style="font-size:0.85rem; color:var(--pink-600); font-weight:700;">
+            ✨ Bấm vào biểu tượng loa để nghe giọng đọc chuẩn bản xứ!
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PARTY MEMBER REVIEWS (ĐỒNG ĐỘI & PHỤ HUYNH NÓI GÌ)
+       ============================================================ -->
+  <section class="section section-alt" id="reviews">
+    <div class="container">
+      <div class="text-center">
+        <span class="pixel-tag"><i class="fa-solid fa-comments"></i> FEEDBACK TỪ PARTY</span>
+        <h2 class="section-title">Học Viên & Phụ Huynh Nói Gì Về <span class="highlight">Gia Sư Linh Chi?</span></h2>
+        <p class="section-subtitle">Sự bứt phá điểm số và niềm tin của học sinh là chiến lợi phẩm quý giá nhất của gia sư.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">
+            "Trước đây em rất sợ ngữ pháp tiếng Anh và hay bị loạn thì. Được gia sư Linh Chi kèm thi vào 10, gia sư giải thích siêu dễ hiểu và cực kỳ kiên nhẫn. Nhờ gia sư mà điểm thi vào 10 của em đạt 9.25 và đỗ nguyện vọng 1!"
+          </p>
+          <div class="review-author">
+            <div class="review-avatar-badge">Đ</div>
+            <div>
+              <div class="author-name">Hải Đăng</div>
+              <div class="author-role">Học sinh đỗ lớp 10 THPT Yên Hòa</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">
+            "Gia sư Linh Chi không chỉ dạy kỹ năng IELTS mà còn truyền cho mình tư duy phân tích đề bài cực kỳ logic. Bài Speaking của mình được gia sư sửa từng lỗi phát âm và chỉ ra cách mở rộng ý tưởng tự nhiên nhất."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar-badge">C</div>
+            <div>
+              <div class="author-name">Minh Châu</div>
+              <div class="author-role">Học viên IELTS nâng từ 4.5 lên 6.5</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">
+            "Gia đình rất an tâm khi gửi gắm cháu cho gia sư Linh Chi kèm cặp. Gia sư luôn cập nhật tình hình bài vở sau mỗi buổi học, phong cách chuẩn mực, nhẹ nhàng và nhiệt huyết của sinh viên Ngoại Thương."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar-badge">H</div>
+            <div>
+              <div class="author-name">Bác Thu Hằng</div>
+              <div class="author-role">Phụ huynh học sinh lớp 11</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GUILD RECEPTION / CONTACT SECTION (ĐẠI SẢNH BÁO DANH)
+       ============================================================ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Info Left -->
+        <div>
+          <span class="pixel-tag"><i class="fa-solid fa-flag"></i> ĐẠI SẢNH BÁO DANH</span>
+          <h2 style="font-family:var(--font-serif); font-size:2.2rem; margin:10px 0 16px 0;">
+            Bắt Đầu Hành Trình <span class="highlight">Cùng Gia Sư Chi</span>
+          </h2>
+          <p style="font-size:1.05rem; color:var(--text-muted); line-height:1.7;">
+            Đừng ngần ngại liên hệ để nhận bài kiểm tra năng lực đầu vào miễn phí hoặc trao đổi về định hướng học tập cho con em bạn nhé!
+          </p>
+
+          <div class="contact-channels">
+            <a href="tel:0399903200" class="channel-item game-sound-btn" data-sfx="click">
+              <div class="channel-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <strong style="font-size:0.8rem; color:var(--text-muted); display:block;">HOTLINE / ZALO</strong>
+                <span style="font-size:1.05rem; font-weight:800; color:var(--text-title);">0399 903 200</span>
+              </div>
+            </a>
+
+            <a href="mailto:nlinhchi2607@gmail.com" class="channel-item game-sound-btn" data-sfx="click">
+              <div class="channel-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <strong style="font-size:0.8rem; color:var(--text-muted); display:block;">EMAIL LIÊN HỆ</strong>
+                <span style="font-size:1.05rem; font-weight:800; color:var(--text-title);">nlinhchi2607@gmail.com</span>
+              </div>
+            </a>
+
+            <div class="channel-item">
+              <div class="channel-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <strong style="font-size:0.8rem; color:var(--text-muted); display:block;">KHU VỰC HOẠT ĐỘNG</strong>
+                <span style="font-size:1.05rem; font-weight:800; color:var(--text-title);">Đống Đa, TP. Hà Nội</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-download-banner">
+            <div>
+              <p style="font-weight:800; color:var(--text-title); font-size:0.95rem;">Bảng Kỹ Năng Chi Tiết (CV)</p>
+              <span style="font-size:0.8rem; color:var(--text-muted);">Tệp PDF chuẩn mực của gia sư</span>
+            </div>
+            <a href="assets/CV-Nguyen-Thi-Linh-Chi.pdf" target="_blank" class="btn btn-game-primary btn-sm game-sound-btn" data-sfx="coin">
+              <i class="fa-solid fa-scroll"></i> Xem & Tải CV
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form Right -->
+        <div>
+          <form class="contact-form" id="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Tên Chiến Binh / Quý Phụ Huynh *</label>
+              <input type="text" id="contact-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-phone">Số Điện Thoại / Zalo Nhận Tin *</label>
+              <input type="tel" id="contact-phone" class="form-control" placeholder="Ví dụ: 0912 345 678" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-goal">Nhiệm Vụ Bạn Quan Tâm *</label>
+              <select id="contact-goal" class="form-control" required>
+                <option value="">-- Chọn nhiệm vụ mong muốn --</option>
+                <option value="IELTS Foundation (3.5 - 6.5)">IELTS Nền tảng (Band 3.5 - 6.5)</option>
+                <option value="Luyện thi vào lớp 10">Luyện thi chuyển cấp vào lớp 10</option>
+                <option value="Tiếng Anh THCS & THPT">Tiếng Anh phổ thông (Lấy gốc & nâng cao)</option>
+                <option value="Gia sư kèm 1-1 chuyên sâu">Gia sư kèm 1-1 chuyên sâu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-msg">Ghi Chú Về Nguyện Vọng & Thời Gian Rảnh</label>
+              <textarea id="contact-msg" class="form-control" placeholder="Chia sẻ thêm về mục tiêu điểm số, thời gian học mong muốn của bạn nhé..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-game-primary game-sound-btn" data-sfx="levelup" style="width:100%; margin-top:8px;">
+              <i class="fa-solid fa-paper-plane"></i> Gửi Đăng Ký Tư Vấn & Nhận Lộ Trình
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="brand-logo">
+            <div class="brand-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <span class="brand-text" style="color:var(--white);">Linh Chi<span class="brand-dot">.</span></span>
+          </a>
+          <p class="footer-bio">
+            Nguyễn Thị Linh Chi – Gia sư Tiếng Anh tận tâm. IELTS 7.5, SAT 1460, Sinh viên Đại học Ngoại Thương Hà Nội.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">DANH MỤC TRÒ CHƠI</h4>
+          <ul class="footer-links">
+            <li><a href="#skills">Chỉ số năng lực</a></li>
+            <li><a href="#inventory">Kho bảo vật & chứng chỉ</a></li>
+            <li><a href="#adventure">Hành trình vượt ải</a></li>
+            <li><a href="#quests">Bảng nhận nhiệm vụ</a></li>
+            <li><a href="#minigame">Mini-Game Arcade</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">KẾT NỐI VỚI GIA SƯ</h4>
+          <ul class="footer-links">
+            <li><a href="tel:0399903200"><i class="fa-solid fa-phone" style="margin-right:8px; color:var(--pink-400);"></i> 0399 903 200</a></li>
+            <li><a href="mailto:nlinhchi2607@gmail.com"><i class="fa-solid fa-envelope" style="margin-right:8px; color:var(--pink-400);"></i> nlinhchi2607@gmail.com</a></li>
+            <li><a href="#contact"><i class="fa-solid fa-location-dot" style="margin-right:8px; color:var(--pink-400);"></i> Đống Đa, Hà Nội</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Gia sư Nguyễn Thị Linh Chi. Toàn bộ nội dung & bản quyền được bảo lưu.</p>
+        <p>Giao diện Gamified Hồng & Trắng thiết kế với tình yêu thương 🌸</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       MODAL: CONSULTATION BOOKING
+       ============================================================ -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="modal-close" aria-label="Đóng popup">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <span class="pixel-tag" style="margin-bottom:12px;"><i class="fa-solid fa-scroll"></i> NHẬN NHIỆM VỤ</span>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; margin-bottom:8px; color:var(--text-title);">
+        Đăng Ký Tư Vấn & Test Trình Độ
+      </h3>
+      <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:20px;">
+        Vui lòng để lại thông tin, gia sư Linh Chi sẽ liên hệ trực tiếp với bạn trong vòng 24 giờ để gửi bài test và trao đổi lộ trình chi tiết!
+      </p>
+
+      <form id="modal-form" class="contact-form">
+        <div class="form-group">
+          <label for="modal-name">Tên của bạn / Quý phụ huynh *</label>
+          <input type="text" id="modal-name" class="form-control" placeholder="Họ và tên của bạn" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-phone">Số điện thoại / Zalo *</label>
+          <input type="tel" id="modal-phone" class="form-control" placeholder="Số điện thoại nhận liên hệ" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-course-select">Nhiệm vụ bạn quan tâm *</label>
+          <select id="modal-course-select" class="form-control" required>
+            <option value="IELTS Foundation (3.5 - 6.5)">IELTS Nền tảng (3.5 - 6.5)</option>
+            <option value="Luyện thi vào lớp 10">Luyện thi vào lớp 10</option>
+            <option value="Tiếng Anh THCS & THPT">Tiếng Anh THCS & THPT</option>
+            <option value="Gia sư 1-1 chuyên sâu">Gia sư 1-1 chuyên sâu</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-game-primary game-sound-btn" data-sfx="levelup" style="width:100%; margin-top:10px;">
+          <i class="fa-solid fa-check"></i> Xác Nhận Nhận Nhiệm Vụ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast-msg">
+    <i class="fa-solid fa-circle-check" style="font-size:1.5rem; color:var(--pink-500);"></i>
+    <div>
+      <strong id="toast-title" style="display:block; font-size:0.95rem; color:var(--text-title);">Thành công!</strong>
+      <span id="toast-desc" style="font-size:0.85rem; color:var(--text-muted);">Gia sư Linh Chi đã nhận được thông tin.</span>
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
