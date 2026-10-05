@@ -30,17 +30,6 @@
 ├── .gitignore                      # Danh sách tệp loại trừ khi đưa lên GitHub
 └── README.md                       # Tài liệu giới thiệu dự án
 ```
-
----
-
-## 🚀 Hướng Dẫn Kích Hoạt GitHub Pages (Đưa Web Lên Mạng Miễn Phí)
-
-1. Đưa toàn bộ mã nguồn lên repository GitHub của bạn.
-2. Truy cập vào repository trên GitHub ➡️ Chọn **Settings** (Cài đặt).
-3. Ở menu bên trái, chọn mục **Pages**.
-4. Tại phần **Build and deployment** ➡️ mục **Branch**, chọn nhánh `main` (hoặc `master`) và thư mục `/(root)`.
-5. Nhấn **Save**. Sau khoảng 1 phút, GitHub Pages sẽ cấp cho bạn một đường link website online công khai miễn phí (ví dụ: `https://your-username.github.io/portfolio/`) để bạn chia sẻ cho học sinh và phụ huynh!
-
 ---
 
 *Thiết kế và phát triển với năng lượng tích cực & tình yêu thương 🌸*
